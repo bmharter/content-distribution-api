@@ -96,6 +96,7 @@ GET /films?title=alien
 
 ## Future Enhancements
 
+- Unit tests
 - Watchlist/queue system for structured film consumption
 - Film ratings and user notes
 - Recommendation logic based on viewing patterns
