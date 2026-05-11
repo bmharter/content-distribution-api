@@ -41,26 +41,31 @@ The application demonstrates production-style backend patterns such as layered a
 ## API Examples
 
 ### Create Film
+```http
 POST /films
-
+```
+```json
 {
   "title": "Alien",
   "genre": "Sci-Fi Horror",
   "releaseYear": 1979
 }
-
+```
 ### Get Films
+```http
 GET /films?page=0&size=5&sortBy=title
-
+```
 ### Filter
+```http
 GET /films?title=alien
 GET /films?genre=Sci-Fi Horror
 GET /films?releaseYear=1979
-
+```
 ### Example Response
-
+```http
 GET /films?title=alien
-
+```
+```json
 {
   "data": [
     {
@@ -75,7 +80,7 @@ GET /films?title=alien
   "totalElements": 1,
   "totalPages": 1
 }
-
+```
 ## Notes
 
 - Database schema is managed via Flyway migrations
