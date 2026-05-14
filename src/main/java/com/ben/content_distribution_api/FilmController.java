@@ -9,6 +9,9 @@ import com.ben.content_distribution_api.dto.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
 /**
  * REST controller for film resource endpoints.
  *
@@ -26,6 +29,10 @@ public class FilmController {
         this.filmService = filmService;
     }
 	
+	@Operation(
+	        summary = "Get films",
+	        description = "Retrieves films with optional filtering, sorting, and pagination."
+	)
 	@GetMapping
 	public ResponseEntity<PagedResponse<FilmDTO>> getAllFilms(
 			@RequestParam(defaultValue = "0") @Min(value = 0, message = "Page must be 0 or greater") int page,
@@ -48,18 +55,31 @@ public class FilmController {
 		return ResponseEntity.ok(films);
 	}
 	
+	@Operation(
+			summary = "Create film",
+			description = "Creates a new film entry with provided details."
+	)
 	@PostMapping
 	public ResponseEntity<FilmDTO> createFilm(@Valid @RequestBody FilmDTO dto) {
 		FilmDTO created = filmService.createFilm(dto);
 	    return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
 	
+	
+	@Operation(
+            summary = "Get film by ID",
+            description = "Retrieves a specific film entry by its unique ID."
+    )
 	@GetMapping("/{id}")
 	public ResponseEntity<FilmDTO> getFilmById(@PathVariable Long id) {
 	    FilmDTO film = filmService.getFilmById(id);
 	    return ResponseEntity.ok(film);
 	}
 	
+	@Operation(
+            summary = "Replace film",
+            description = "Fully replaces a specific film entry by its unique ID."
+    )
 	@PutMapping("/{id}")
 	public ResponseEntity<FilmDTO> updateFilm(
 	        @PathVariable Long id,
@@ -69,6 +89,10 @@ public class FilmController {
 	    return ResponseEntity.ok(updatedFilm);
 	}
 	
+	@Operation(
+            summary = "Patch film",
+            description = "Updates a specific film entry by its unique ID with provided details. Only provided fields will be changed."
+    )
 	@PatchMapping("/{id}")
 	public ResponseEntity<FilmDTO> patchFilm(
 			@PathVariable Long id,
@@ -78,6 +102,10 @@ public class FilmController {
 		return ResponseEntity.ok(updatedFilm);
 	}
 	
+	@Operation(
+			summary = "Delete film",
+			description = "Permanently deletes a specific film entry by its unique ID. Deleted IDs are not reused or renumbered."
+	)	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteFilm(@PathVariable Long id) {
 	    filmService.deleteFilm(id);
